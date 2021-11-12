@@ -5,13 +5,9 @@ import time
 sys.path.append('/home/pi/Dexter/GrovePi/Software/Python')
 
 from grovepi import *
-# import grove_rgb_lcd as lcd
 from grove_rgb_lcd import *
 
-# Modules for my apps
-import my_reddit
-import my_weather
-import my_app  # TODO: Create my_app.py using another API, following the examples as a template
+import weather
 
 PORT_BUZZER = 2     # D2
 PORT_BUTTON = 4     # D4

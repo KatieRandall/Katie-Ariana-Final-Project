@@ -21,7 +21,9 @@ def get_weather(zip_code):
         # TODO: Extract the temperature & humidity from data, and return as a tuple
         temp = data['main']['temp']
         humidity = data['main']['humidity']
-        return temp, humidity
+        clouds = data['main']['clouds']['all']
+        rain = data['rain']['1h']
+        return temp, humidity, clouds, rain
 
     else:
         print('error: got response code %d' % response.status_code)
@@ -30,9 +32,9 @@ def get_weather(zip_code):
 
 def weather_init():
     zip_code = DEFAULT_ZIP
-    temp, hum = get_weather(zip_code)
+    temp, hum, cloud, rain = get_weather(zip_code)
     
-    output = '{:.1f}F, {:>.0f}% humidity'.format(temp, hum)
+    output = '{:.1f}F, {:>.0f}% humidity, {:>.0f}% cloudy, {:.1f}mm'.format(temp, hum, clouds, rain)
     print('weather for {}: {}'.format(zip_code, output))
 
     return output
