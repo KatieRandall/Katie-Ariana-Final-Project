@@ -9,7 +9,7 @@ DEFAULT_ZIP = 90007
 def get_weather(zip_code):
     params = {
         'appid': OWM_API_KEY,
-        'zip': 90007,
+        'zip': zip_code,
         'units': 'imperial'
     }
 
@@ -21,9 +21,9 @@ def get_weather(zip_code):
         # TODO: Extract the temperature & humidity from data, and return as a tuple
         temp = data['main']['temp']
         humidity = data['main']['humidity']
-        clouds = data['main']['clouds']['all']
-        rain = data['rain']['1h']
-        return temp, humidity, clouds, rain
+        clouds = data['clouds']['all']
+        #rain = data[1]['main']
+        return temp, humidity, clouds
 
     else:
         print('error: got response code %d' % response.status_code)
@@ -32,9 +32,9 @@ def get_weather(zip_code):
 
 def weather_init():
     zip_code = DEFAULT_ZIP
-    temp, hum, cloud, rain = get_weather(zip_code)
+    temp, hum, clouds = get_weather(zip_code)
     
-    output = '{:.1f}F, {:>.0f}% humidity, {:>.0f}% cloudy, {:.1f}mm'.format(temp, hum, clouds, rain)
+    output = '{:.1f}F, {:>.0f}% humidity, {:>.0f}% cloudy'.format(temp, hum, clouds)
     print('weather for {}: {}'.format(zip_code, output))
 
     return output
