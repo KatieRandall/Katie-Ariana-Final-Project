@@ -28,22 +28,12 @@ def get_weather(zip_code):
     else:
         print('error: got response code %d' % response.status_code)
         print(response.text)
-        return 0.0, 0.0
+        return 0.0, 0.0, 0.0
+
 
 def weather_init():
     zip_code = DEFAULT_ZIP
-    temp, hum, clouds = get_weather(zip_code)
-    
-    output = '{:.1f}F, {:>.0f}% humidity, {:>.0f}% cloudy'.format(temp, hum, clouds)
-    print('weather for {}: {}'.format(zip_code, output))
-
-    return output
-
-
-WEATHER_APP = {
-    'name': 'Weather',
-    'init': weather_init
-}
+    return get_weather(zip_code)
 
 
 if __name__ == '__main__':

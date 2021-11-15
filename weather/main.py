@@ -20,20 +20,35 @@ LCD_LINE_LEN = 16
 # pinMode(PORT_BUTTON, "INPUT")
 # pinMode(ROTARY_SENSOR, "INPUT")
 
-# Installed Apps!
-APPS = [
-    weather.WEATHER_APP
-]
-
-# Cache to store values so we save time and don't abuse the APIs
-CACHE = ['']
-CACHE[0] = '  ' + APPS[0]['init']()
-
-app = 0     # Active app
-ind = 0     # Output index
 
 while True:
-    print(CACHE[0])
+    # get the current weather data and store it in variables
+    curr_temp, curr_hum, curr_clouds = weather.weather_init()
+    print("current temp: " + str(curr_temp))
+    print("current humidity: " + str(curr_hum))
+    print("current cloud %: " + str(curr_clouds))
+
+    # do some signal processing to determine if it will rain or not
+
+
+    # use thresholds to classify the day's heat level
+    # if curr_temp > 80:
+    #     # really hot
+    #     lcd.setRGB(252, 50, 43)
+    # elif curr_temp > 70:
+    #     # kind of hot
+    #     lcd.setRGB(255, 145, 0)
+    # elif curr_temp > 50:
+    #     # warm-ish
+    #     lcd.setRGB(255, 208, 0)
+    # elif curr_temp > 40:
+    #     # cool
+    #     lcd.setRGB(0, 255, 204)
+    # else:
+    #     # cold!
+    #     lcd.setRGB(0, 42, 255)
+
+
     # try:
         # checks if button has been pressed
         # if digitalRead(PORT_BUTTON):
