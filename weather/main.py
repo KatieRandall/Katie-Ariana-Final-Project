@@ -1,11 +1,14 @@
 import requests
 import sys
 import time
+import grovepi
 
 # sys.path.append('/home/pi/Dexter/GrovePi/Software/Python')
 
-# from grovepi import *
-# from grove_rgb_lcd import *
+sys.path.append('/GrovePi-EE250/Software/Python')
+
+from grovepi import *
+from grove_rgb_lcd import *
 
 import weather
 
