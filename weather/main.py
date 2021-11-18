@@ -1,16 +1,14 @@
 import requests
 import sys
 import time
-import grovepi
+# import grovepi
 
 # imports for matplotlib
 import datetime as dt
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
-# sys.path.append('/home/pi/Dexter/GrovePi/Software/Python')
-
-sys.path.append('/GrovePi-EE250/Software/Python')
+# sys.path.append('/GrovePi-EE250/Software/Python')
 
 from grovepi import *
 from grove_rgb_lcd import *
@@ -24,9 +22,7 @@ LIGHT_SENSOR = 0   # A0
 LCD_LINE_LEN = 16
 
 # Setup
-# pinMode(PORT_BUZZER, "OUTPUT")
-# pinMode(PORT_BUTTON, "INPUT")
-pinMode(LIGHT_SENSOR, "INPUT")
+# pinMode(LIGHT_SENSOR, "INPUT")
 
 
 def main():
@@ -40,21 +36,21 @@ def main():
     # do some signal processing
 
     # use thresholds to classify the day's heat level
-    if curr_temp > 80:
-        # really hot
-        setRGB(252, 50, 43)
-    elif curr_temp > 70:
-        # kind of hot
-        setRGB(255, 145, 0)
-    elif curr_temp > 50:
-        # warm-ish
-        setRGB(255, 208, 0)
-    elif curr_temp > 40:
-        # cool
-        setRGB(0, 255, 204)
-    else:
-        # cold!
-        setRGB(0, 42, 255)
+    # if curr_temp > 80:
+    #     # really hot
+    #     setRGB(252, 50, 43)
+    # elif curr_temp > 70:
+    #     # kind of hot
+    #     setRGB(255, 145, 0)
+    # elif curr_temp > 50:
+    #     # warm-ish
+    #     setRGB(255, 208, 0)
+    # elif curr_temp > 40:
+    #     # cool
+    #     setRGB(0, 255, 204)
+    # else:
+    #     # cold!
+    #     setRGB(0, 42, 255)
 
 
     # output the brightness in the room
