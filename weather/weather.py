@@ -4,7 +4,7 @@ import requests
 
 OWM_API_KEY = 'eea08d1ae70611d0938f089aa4d93e8b'  # OpenWeatherMap API Key
 
-DEFAULT_ZIP = 83837
+DEFAULT_ZIP = 90007
 
 def get_weather(zip_code):
     params = {
