@@ -1,14 +1,14 @@
 import requests
 import sys
 import time
-import grovepi
+#import grovepi
 
 # sys.path.append('/home/pi/Dexter/GrovePi/Software/Python')
 
 sys.path.append('/GrovePi-EE250/Software/Python')
 
-from grovepi import *
-from grove_rgb_lcd import *
+# from grovepi import *
+# from grove_rgb_lcd import *
 
 import weather
 
@@ -26,10 +26,11 @@ LCD_LINE_LEN = 16
 
 while True:
     # get the current weather data and store it in variables
-    curr_temp, curr_hum, curr_clouds = weather.weather_init()
+    curr_temp, curr_hum, curr_clouds, rain = weather.weather_init()
     print("current temp: " + str(curr_temp))
     print("current humidity: " + str(curr_hum))
     print("current cloud %: " + str(curr_clouds))
+    print("current rain: " + str(rain))
 
     # do some signal processing to determine if it will rain or not
 

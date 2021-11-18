@@ -4,7 +4,7 @@ import requests
 
 OWM_API_KEY = 'eea08d1ae70611d0938f089aa4d93e8b'  # OpenWeatherMap API Key
 
-DEFAULT_ZIP = 90007
+DEFAULT_ZIP = 83837
 
 def get_weather(zip_code):
     params = {
@@ -22,13 +22,13 @@ def get_weather(zip_code):
         temp = data['main']['temp']
         humidity = data['main']['humidity']
         clouds = data['clouds']['all']
-        #rain = data[1]['main']
-        return temp, humidity, clouds
+        rain = data['weather'][0]['description']
+        return temp, humidity, clouds, rain
 
     else:
         print('error: got response code %d' % response.status_code)
         print(response.text)
-        return 0.0, 0.0, 0.0
+        return 0.0, 0.0, 0.0, 0.0
 
 
 def weather_init():
