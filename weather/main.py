@@ -14,14 +14,14 @@ import weather
 
 PORT_BUZZER = 2     # D2
 PORT_BUTTON = 4     # D4
-ROTARY_SENSOR = 0   # A0
+LIGHT_SENSOR = 0   # A0
 
 LCD_LINE_LEN = 16
 
 # Setup
 # pinMode(PORT_BUZZER, "OUTPUT")
 # pinMode(PORT_BUTTON, "INPUT")
-# pinMode(ROTARY_SENSOR, "INPUT")
+pinMode(LIGHT_SENSOR, "INPUT")
 
 
 while True:
@@ -32,7 +32,7 @@ while True:
     print("current cloud %: " + str(curr_clouds))
     print("current rain: " + str(rain))
 
-    # do some signal processing to determine if it will rain or not
+    # do some signal processing
 
 
     # use thresholds to classify the day's heat level
@@ -51,6 +51,13 @@ while True:
     else:
         # cold!
         setRGB(0, 42, 255)
+
+
+    # output the brightness in the room
+    lightVal = analogRead(LIGHT_SENSOR)
+    print
+    print("light value: " + str(lightVal))
+    print
 
 
     # try:
