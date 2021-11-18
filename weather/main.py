@@ -3,6 +3,11 @@ import sys
 import time
 import grovepi
 
+# imports for matplotlib
+import datetime as dt
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+
 # sys.path.append('/home/pi/Dexter/GrovePi/Software/Python')
 
 sys.path.append('/GrovePi-EE250/Software/Python')
@@ -24,7 +29,7 @@ LCD_LINE_LEN = 16
 pinMode(LIGHT_SENSOR, "INPUT")
 
 
-while True:
+def main():
     # get the current weather data and store it in variables
     curr_temp, curr_hum, curr_clouds, rain = weather.weather_init()
     print("current temp: " + str(curr_temp))
@@ -33,7 +38,6 @@ while True:
     print("current rain: " + str(rain))
 
     # do some signal processing
-
 
     # use thresholds to classify the day's heat level
     if curr_temp > 80:
@@ -54,45 +58,23 @@ while True:
 
 
     # output the brightness in the room
-    lightVal = analogRead(LIGHT_SENSOR)
-    print
-    print("light value: " + str(lightVal))
-    print
+    # lightVal = analogRead(LIGHT_SENSOR)
+    # print
+    # print("light value: " + str(lightVal))
+    # print
 
+    # matplotlib to plot light sensor data in real time
 
-    # try:
-        # checks if button has been pressed
-        # if digitalRead(PORT_BUTTON):
-        #     # BEEP!
-        #     digitalWrite(PORT_BUZZER, 1)
+    
+    # Create figure for plotting
+    fig = plt.figure()
+    ax = fig.add_subplot(1, 1, 1)
+    xs = []
+    ys = []
 
-        
-        # time.sleep(0.1)
-
-        # digitalWrite(PORT_BUZZER, 0)
-
-        # if (ind == 0):
-        #     # Display app name
-        #     setText_norefresh(APPS[app]['name'])
-        
-        
-        # # Scroll output
-        # setText_norefresh('\n' + CACHE[app][ind:ind+LCD_LINE_LEN])
-        # # TODO: Make the output scroll across the screen (should take 1-2 lines of code)
-        # ind = (ind + 1)%(len(CACHE[app]))
-
-        # rotary_value = analogRead(ROTARY_SENSOR) # reading rotary angle sensor value for mood lighting
-        # if rotary_value < 205:
-        #     setRGB(0, 0, 0) # off
-        # elif rotary_value < 410:
-        #     setRGB(64, 255, 83) # green
-        # elif rotary_value < 615:
-        #     setRGB(64, 172, 255) # blue
-        # elif rotary_value < 820:
-        #     setRGB(118, 64, 255) # purple
-        # else:
-        #     setRGB(249, 64, 255) # pink
-
+    # Set up plot to call animate() function periodically
+    ani = animation.FuncAnimation(fig, animate, fargs=(xs, ys), interval=1000)
+    plt.show()
 
 
     # except KeyboardInterrupt:
@@ -112,3 +94,32 @@ while True:
 
     #     else:
     #         raise
+
+
+# This function is called periodically from FuncAnimation
+def animate(i, xs, ys):
+
+    # Read temperature (Celsius) from TMP102
+    # temp_c = round(tmp102.read_temp(), 2)
+    currLight = analogRead(LIGHT_SENSOR)
+
+    # Add x and y to lists
+    xs.append(dt.datetime.now().strftime('%H:%M:%S.%f'))
+    ys.append(currLight)
+
+    # Limit x and y lists to 20 items
+    xs = xs[-20:]
+    ys = ys[-20:]
+
+    # Draw x and y lists
+    ax.clear()
+    ax.plot(xs, ys)
+
+    # Format plot
+    plt.xticks(rotation=45, ha='right')
+    plt.subplots_adjust(bottom=0.30)
+    plt.title('Light Values over Time')
+    plt.ylabel('units')
+
+if __name__ == "__main__":
+    main()
