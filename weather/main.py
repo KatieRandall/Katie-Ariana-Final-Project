@@ -1,14 +1,14 @@
 import requests
 import sys
 import time
-#import grovepi
+import grovepi
 
 # sys.path.append('/home/pi/Dexter/GrovePi/Software/Python')
 
 sys.path.append('/GrovePi-EE250/Software/Python')
 
-# from grovepi import *
-# from grove_rgb_lcd import *
+from grovepi import *
+from grove_rgb_lcd import *
 
 import weather
 
@@ -36,21 +36,21 @@ while True:
 
 
     # use thresholds to classify the day's heat level
-    # if curr_temp > 80:
-    #     # really hot
-    #     lcd.setRGB(252, 50, 43)
-    # elif curr_temp > 70:
-    #     # kind of hot
-    #     lcd.setRGB(255, 145, 0)
-    # elif curr_temp > 50:
-    #     # warm-ish
-    #     lcd.setRGB(255, 208, 0)
-    # elif curr_temp > 40:
-    #     # cool
-    #     lcd.setRGB(0, 255, 204)
-    # else:
-    #     # cold!
-    #     lcd.setRGB(0, 42, 255)
+    if curr_temp > 80:
+        # really hot
+        setRGB(252, 50, 43)
+    elif curr_temp > 70:
+        # kind of hot
+        setRGB(255, 145, 0)
+    elif curr_temp > 50:
+        # warm-ish
+        setRGB(255, 208, 0)
+    elif curr_temp > 40:
+        # cool
+        setRGB(0, 255, 204)
+    else:
+        # cold!
+        setRGB(0, 42, 255)
 
 
     # try:
