@@ -49,20 +49,16 @@ if __name__ == '__main__':
     client.loop_start()
 
     # setting up up connections on the Grovepi
-    ultrasonic_ranger = 4
-    led = 3
-    button = 2
-    pinMode(led,"OUTPUT")
-
+    light_sensor = 4
+    pinMode(light_sensor,"INPUT")
+    
     while True:
-        with lock:
-            # monitoring and publishing ultrasonic ranger
-            ultrasonic_value = ultrasonicRead(ultrasonic_ranger)
-            client.publish("arianang/ultrasonicRanger", str(ultrasonic_value))
+        try:
+            with lock:
+                # monitoring and publishing light sensor
+                light_value = analogRead(light_sensor)
+                client.publish(light_path, str(light_value))
 
-        with lock:
-            # monitoring button
-            if digitalRead(button):
-                client.publish("arianang/button", "Button pressed")
-
-        time.sleep(1)
+            time.sleep(.5)
+        except IOError:
+            print("errror")
