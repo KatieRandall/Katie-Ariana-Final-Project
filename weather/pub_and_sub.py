@@ -6,29 +6,37 @@ import threading # has Lock, a key. you cannot perform operations without the ke
 
 lock = threading.Lock()
 
+led_path = "kqrandal/led" #change to arianang/led if using ariana's pi
+
 def on_connect(client, userdata, flags, rc):
     print("Connected to server (i.e., broker) with result code "+str(rc))
 
     # subscribing to led topic
-    client.subscribe("arianang/led")
-    client.message_callback_add("arianang/led", led_callback)
+    client.subscribe(led_path)
+    client.message_callback_add(led_path, led_callback)
 
 #Default message callback. Please use custom callbacks.
 def on_message(client, userdata, msg):
     print("on_message: " + msg.topic + " " + str(msg.payload, "utf-8"))
 
-# my custom callback for the led
-def led_callback(client, userdata, message):
+#new led callback 
+def_ledcallback(client,userdata, message):
     with lock:
-        if str(message.payload, "utf-8") == "LED_ON":
-            # turn on LED
-            digitalWrite(led,1)
-            print ("LED on")
-        
-        elif str(message.payload, "utf-8") == "LED_OFF":
-            # turn off LED
-            digitalWrite(led,0)
-            print ("LED off")
+        RGB = message.payload.split(".")
+        setRGB(RGB[0], RGB[1], RGB[2])
+
+# my custom callback for the led
+# def led_callback(client, userdata, message):
+    # with lock:
+        # if str(message.payload, "utf-8") == "LED_ON":
+            # # turn on LED
+            # digitalWrite(led,1)
+            # print ("LED on")
+        # 
+        # elif str(message.payload, "utf-8") == "LED_OFF":
+            # # turn off LED
+            # digitalWrite(led,0)
+            # print ("LED off")
 
 
 

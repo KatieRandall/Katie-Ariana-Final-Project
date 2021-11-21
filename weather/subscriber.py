@@ -1,20 +1,22 @@
 import paho.mqtt.client as mqtt
 import time
 
+light_path = "kqrandal/light" #change to arianag/light if using ariana's pi
+
 def on_connect(client, userdata, flags, rc):
     print("Connected to server (i.e., broker) with result code "+str(rc))
 
-    # subscribing to the ultrasonic ranger topic
-    client.subscribe("arianang/led")
-    client.message_callback_add("arianang/led", led_callback)
+    # subscribing to the light sensor topic
+    client.subscribe(light_path, qos=1)
+    client.message_callback_add(light_path, led_callback)
 
 #Default message callback. Please use custom callbacks.
 def on_message(client, userdata, msg):
     print("on_message: " + msg.topic + " " + str(msg.payload, "utf-8"))
 
-# my custom callback for the ultrasonic ranger
+# my custom callback for the light sensor
 def led_callback(client, userdata, message):
-    print("in led callback function")
+    print("in light sensor callback")
 
 if __name__ == '__main__':
     #this section is covered in publisher_and_subscriber_example.py
