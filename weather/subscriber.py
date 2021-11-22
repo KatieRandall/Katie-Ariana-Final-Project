@@ -1,7 +1,7 @@
 import paho.mqtt.client as mqtt
 import time
 
-light_path = "kqrandal/light" #change to arianag/light if using ariana's pi
+light_path = "kqrandal/light" #change to arianang/light if using ariana's pi
 
 def on_connect(client, userdata, flags, rc):
     print("Connected to server (i.e., broker) with result code "+str(rc))

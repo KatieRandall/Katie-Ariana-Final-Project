@@ -20,7 +20,7 @@ def on_message(client, userdata, msg):
     print("on_message: " + msg.topic + " " + str(msg.payload, "utf-8"))
 
 #new led callback 
-def_ledcallback(client,userdata, message):
+def led_callback(client, userdata, message):
     with lock:
         RGB = message.payload.split(".")
         setRGB(RGB[0], RGB[1], RGB[2])
