@@ -30,6 +30,9 @@ def data_callback(client, userdata, message):
         # setRGB(RGB[0], RGB[1], RGB[2])
         print("in data callback")
 
+        # here's where we will do something with the data we receive from our laptops.
+        # maybe control LCD or an LED or something on the pi
+
 if __name__ == '__main__':
     #this section is covered in publisher_and_subscriber_example.py
     client = mqtt.Client()
