@@ -1,34 +1,35 @@
 import requests
+import json
 
-# OpenWeatherMap API: https://openweathermap.org/current
+# Weather API
 
-OWM_API_KEY = 'eea08d1ae70611d0938f089aa4d93e8b'  # OpenWeatherMap API Key
+WEATHER_API_KEY = 'd7a59e119eec41cabdf05038212211'  # Weather API Key
 
 DEFAULT_ZIP = 90007
 
 def get_weather(zip_code):
     params = {
-        'appid': OWM_API_KEY,
-        'zip': zip_code,
-        'units': 'imperial'
+        'key': WEATHER_API_KEY,
+        'q': zip_code,
     }
 
-    response = requests.get('http://api.openweathermap.org/data/2.5/weather', params)
+    response = requests.get('http://api.weatherapi.com/v1/current.json', params)
 
     if response.status_code == 200: # Status: OK
         data = response.json()
+        # print(json.dumps(data, indent=4))
 
         # TODO: Extract the temperature & humidity from data, and return as a tuple
-        temp = data['main']['temp']
-        humidity = data['main']['humidity']
-        clouds = data['clouds']['all']
-        rain = data['weather'][0]['description']
-        return temp, humidity, clouds, rain
+        temp = data['current']['temp_f']
+        clouds = data['current']['cloud']
+        uv = data['current']['uv']
+        day_or_not = data['current']['is_day']
+        return temp, clouds, uv, day_or_not
 
     else:
         print('error: got response code %d' % response.status_code)
         print(response.text)
-        return 0.0, 0.0, 0.0, 0.0
+        return 0.0, 0.0, 0.0
 
 
 def weather_init():

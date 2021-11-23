@@ -1,3 +1,7 @@
+# Our raspberry pi will
+# 1) subscribe to weather data from laptop
+# 2) publish light sensor data
+
 import paho.mqtt.client as mqtt
 import time
 from grovepi import *
@@ -6,39 +10,25 @@ import threading # has Lock, a key. you cannot perform operations without the ke
 
 lock = threading.Lock()
 
-led_path = "kqrandal/led" #change to arianang/led if using ariana's pi
+laptopdata_path = "kqrandal/data" #change to arianang/data if using ariana's pi
 
 def on_connect(client, userdata, flags, rc):
     print("Connected to server (i.e., broker) with result code "+str(rc))
 
-    # subscribing to led topic
-    client.subscribe(led_path)
-    client.message_callback_add(led_path, led_callback)
+    # subscribing to laptop data topic
+    client.subscribe(laptopdata_path)
+    client.message_callback_add(laptopdata_path, data_callback)
 
 #Default message callback. Please use custom callbacks.
 def on_message(client, userdata, msg):
     print("on_message: " + msg.topic + " " + str(msg.payload, "utf-8"))
 
 #new led callback 
-def led_callback(client, userdata, message):
+def data_callback(client, userdata, message):
     with lock:
-        RGB = message.payload.split(".")
-        setRGB(RGB[0], RGB[1], RGB[2])
-
-# my custom callback for the led
-# def led_callback(client, userdata, message):
-    # with lock:
-        # if str(message.payload, "utf-8") == "LED_ON":
-            # # turn on LED
-            # digitalWrite(led,1)
-            # print ("LED on")
-        # 
-        # elif str(message.payload, "utf-8") == "LED_OFF":
-            # # turn off LED
-            # digitalWrite(led,0)
-            # print ("LED off")
-
-
+        # RGB = message.payload.split(".")
+        # setRGB(RGB[0], RGB[1], RGB[2])
+        print("in data callback")
 
 if __name__ == '__main__':
     #this section is covered in publisher_and_subscriber_example.py
@@ -49,7 +39,7 @@ if __name__ == '__main__':
     client.loop_start()
 
     # setting up up connections on the Grovepi
-    light_sensor = 4
+    light_sensor = 0 # light sensor should be plugged into A0
     pinMode(light_sensor,"INPUT")
     
     while True:
@@ -60,5 +50,6 @@ if __name__ == '__main__':
                 client.publish(light_path, str(light_value))
 
             time.sleep(.5)
+            
         except IOError:
-            print("errror")
+            print("error")

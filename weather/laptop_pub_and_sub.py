@@ -1,3 +1,7 @@
+# Our laptop will
+# 1) publish weather data
+# 2) subscribe to light sensor data from rpi
+
 import paho.mqtt.client as mqtt
 import time
 
@@ -8,15 +12,16 @@ def on_connect(client, userdata, flags, rc):
 
     # subscribing to the light sensor topic
     client.subscribe(light_path, qos=1)
-    client.message_callback_add(light_path, led_callback)
+    client.message_callback_add(light_path, light_callback)
 
 #Default message callback. Please use custom callbacks.
 def on_message(client, userdata, msg):
     print("on_message: " + msg.topic + " " + str(msg.payload, "utf-8"))
 
 # my custom callback for the light sensor
-def led_callback(client, userdata, message):
+def light_callback(client, userdata, message):
     print("in light sensor callback")
+    print("light sensor reading: " + str(message.payload, "utf-8"))
 
 if __name__ == '__main__':
     #this section is covered in publisher_and_subscriber_example.py
@@ -27,4 +32,8 @@ if __name__ == '__main__':
     client.loop_start()
 
     while True:
+        #publish the lcd color values to the pi every time the color needs to change. Probably need to add a callback for this
+        #if lcd_changed:
+        #    client.publish(light_path, payload=str(R_value)+ ","+str(G_value)+","+str(B_value),qos=1,retain=False)
         time.sleep(1)
+        
