@@ -23,6 +23,23 @@ def light_callback(client, userdata, message):
     print("in light sensor callback")
     print("light sensor reading: " + str(message.payload, "utf-8"))
 
+    # do matplot lib here
+    # below are notes from talking with Fayez
+
+    # one way (this uses a lot of space though):
+    # each time we get a value, append it to an array and erases first val
+    # think of it like a circular buffer
+
+    # better way
+    # control when it polls for a new value
+    # can change when i send light sensor value (maybe every 1000 ms)
+    # poll every 1200-1300 ms (start with something larger)
+    # keep one variable and overwrite it
+
+    # if i know the time, do i need an array?
+    # we know that mail will come (light sensor data will come) every 0.5 s
+    # deposit in one variable and read it from that variable
+
 if __name__ == '__main__':
     #this section is covered in publisher_and_subscriber_example.py
     client = mqtt.Client()
