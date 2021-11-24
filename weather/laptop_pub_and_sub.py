@@ -5,7 +5,7 @@
 import paho.mqtt.client as mqtt
 import time
 
-light_path = "kqrandal/light" #change to arianang/light if using ariana's pi
+light_path = "arianang/light" #change to arianang/light if using ariana's pi
 
 def on_connect(client, userdata, flags, rc):
     print("Connected to server (i.e., broker) with result code "+str(rc))
@@ -81,5 +81,5 @@ if __name__ == '__main__':
         #publish the lcd color values to the pi every time the color needs to change. Probably need to add a callback for this
         #if lcd_changed:
         #    client.publish(light_path, payload=str(R_value)+ ","+str(G_value)+","+str(B_value),qos=1,retain=False)
-        time.sleep(1)
+        time.sleep(0.5)
         

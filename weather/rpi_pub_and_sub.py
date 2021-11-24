@@ -10,7 +10,7 @@ import threading # has Lock, a key. you cannot perform operations without the ke
 
 lock = threading.Lock()
 
-laptopdata_path = "kqrandal/data" #change to arianang/data if using ariana's pi
+laptopdata_path = "arianang/data" #change to arianang/data if using ariana's pi
 
 def on_connect(client, userdata, flags, rc):
     print("Connected to server (i.e., broker) with result code "+str(rc))
@@ -23,7 +23,7 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     print("on_message: " + msg.topic + " " + str(msg.payload, "utf-8"))
 
-#new led callback 
+# laptop weather data callback 
 def data_callback(client, userdata, message):
     with lock:
         # RGB = message.payload.split(".")
