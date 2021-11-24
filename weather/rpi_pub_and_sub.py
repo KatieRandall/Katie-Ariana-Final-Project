@@ -11,6 +11,7 @@ import threading # has Lock, a key. you cannot perform operations without the ke
 lock = threading.Lock()
 
 laptopdata_path = "arianang/data" #change to arianang/data if using ariana's pi
+light_path = "arianang/light" #change to arianang/light if using ariana's pi
 
 def on_connect(client, userdata, flags, rc):
     print("Connected to server (i.e., broker) with result code "+str(rc))
@@ -26,12 +27,17 @@ def on_message(client, userdata, msg):
 # laptop weather data callback 
 def data_callback(client, userdata, message):
     with lock:
-        # RGB = message.payload.split(".")
-        # setRGB(RGB[0], RGB[1], RGB[2])
         print("in data callback")
 
-        # here's where we will do something with the data we receive from our laptops.
-        # maybe control LCD or an LED or something on the pi
+        # sets the text on the LCD to open blinds or close blinds
+        setText(str(message.payload, "utf-8"))
+        if str(message.payload, "utf-8") == "open blinds":
+            # to indicate that we should open the blinds, set background color to yellow
+            setRGB(247, 255, 20)
+        else:
+            # to indicate that we should close the blinds, set background color to blue
+            setRGB(20, 228, 255)
+
 
 if __name__ == '__main__':
     #this section is covered in publisher_and_subscriber_example.py
@@ -41,7 +47,7 @@ if __name__ == '__main__':
     client.connect(host="eclipse.usc.edu", port=11000, keepalive=60)
     client.loop_start()
 
-    # setting up up connections on the Grovepi
+    # setting up connections on the Grovepi
     light_sensor = 0 # light sensor should be plugged into A0
     pinMode(light_sensor,"INPUT")
     

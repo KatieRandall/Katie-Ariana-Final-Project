@@ -20,11 +20,10 @@ def get_weather(zip_code):
         # print(json.dumps(data, indent=4))
 
         # TODO: Extract the temperature & humidity from data, and return as a tuple
-        temp = data['current']['temp_f']
         clouds = data['current']['cloud']
         uv = data['current']['uv']
         day_or_not = data['current']['is_day']
-        return temp, clouds, uv, day_or_not
+        return clouds, uv, day_or_not
 
     else:
         print('error: got response code %d' % response.status_code)
