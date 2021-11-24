@@ -1,2 +1,10 @@
-# Katie-Ariana-Final-Project
-## EE 250 Fall 2021
+# EE 250 Final Project
+## Ariana Goldstein and Katie Randall
+
+Demonstration video link:
+
+### Overview
+
+### To Compile and Execute
+
+### External Libraries Used
