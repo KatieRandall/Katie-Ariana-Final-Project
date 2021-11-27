@@ -7,8 +7,8 @@ import time
 import weather
 
 # paths to use for topics
-laptopdata_path = "arianang/data" #change to arianang/data if using ariana's pi
-light_path = "arianang/light" #change to arianang/light if using ariana's pi
+laptopdata_path = "kqrandal/data" #change to arianang/data if using ariana's pi
+light_path = "kqrandal/light" #change to arianang/light if using ariana's pi
 
 # global variable to create and update with current light sensor value
 curr_lightsensor_val = 0
@@ -58,11 +58,11 @@ def api_signal_processing(api_cloudcover, api_uv):
     uv_percent = api_uv / MAX_UV_VALUE
 
     # return outside light value out of 100
-    return (CLOUD_WEIGHT*api_cloudcover + UV_WEIGHT*uv_percent)/1000
+    return (CLOUD_WEIGHT*(100-api_cloudcover) + UV_WEIGHT*uv_percent)/1000
 
 # this function returns the light sensor data in a percentage out of 100
 def sensor_signal_processing(sensor_data):
-    MAX_READING = 738 # max light sensor value
+    MAX_READING = 760 # max light sensor value (not sure if this is max)
 
     # return inside light value out of 100
     return sensor_data / MAX_READING

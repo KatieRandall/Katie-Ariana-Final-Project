@@ -4,14 +4,15 @@
 
 import paho.mqtt.client as mqtt
 import time
+import grovepi  
 from grovepi import *
 from grove_rgb_lcd import *
 import threading # has Lock, a key. you cannot perform operations without the key
 
 lock = threading.Lock()
 
-laptopdata_path = "arianang/data" #change to arianang/data if using ariana's pi
-light_path = "arianang/light" #change to arianang/light if using ariana's pi
+laptopdata_path = "kqrandal/data" #change to arianang/data if using ariana's pi
+light_path = "kqrandal/light" #change to arianang/light if using ariana's pi
 
 def on_connect(client, userdata, flags, rc):
     print("Connected to server (i.e., broker) with result code "+str(rc))
@@ -49,16 +50,18 @@ if __name__ == '__main__':
 
     # setting up connections on the Grovepi
     light_sensor = 0 # light sensor should be plugged into A0
+    lcd = 4 #led should be on I2C
     pinMode(light_sensor,"INPUT")
+    pinMode(lcd, "OUTPUT")
     
     while True:
         try:
             with lock:
                 # monitoring and publishing light sensor
                 light_value = analogRead(light_sensor)
-                client.publish(light_path, str(light_value))
+                client.publish(light_path, light_value)
 
-            time.sleep(.5)
+            time.sleep(1)
             
         except IOError:
             print("error")
