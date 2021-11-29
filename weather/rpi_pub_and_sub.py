@@ -11,8 +11,8 @@ import threading # has Lock, a key. you cannot perform operations without the ke
 
 lock = threading.Lock()
 
-laptopdata_path = "kqrandal/data" #change to arianang/data if using ariana's pi
-light_path = "kqrandal/light" #change to arianang/light if using ariana's pi
+laptopdata_path = "arianang/data" #change to arianang/data if using ariana's pi
+light_path = "arianang/light" #change to arianang/light if using ariana's pi
 
 def on_connect(client, userdata, flags, rc):
     print("Connected to server (i.e., broker) with result code "+str(rc))
@@ -50,9 +50,8 @@ if __name__ == '__main__':
 
     # setting up connections on the Grovepi
     light_sensor = 0 # light sensor should be plugged into A0
-    lcd = 4 #led should be on I2C
+    # lcd should be plugged into an I2C port. no code necessary to declare this, just wiring
     pinMode(light_sensor,"INPUT")
-    pinMode(lcd, "OUTPUT")
     
     while True:
         try:

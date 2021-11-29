@@ -12,8 +12,8 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
 # paths to use for topics
-laptopdata_path = "kqrandal/data" #change to arianang/data if using ariana's pi
-light_path = "kqrandal/light" #change to arianang/light if using ariana's pi
+laptopdata_path = "arianang/data" #change to arianang/data if using ariana's pi
+light_path = "arianang/light" #change to arianang/light if using ariana's pi
 
 # global variable to create and update with current light sensor value
 curr_lightsensor_val = 0
