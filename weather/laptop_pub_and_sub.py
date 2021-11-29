@@ -90,8 +90,13 @@ if __name__ == '__main__':
     ys = []
 
     while True:
+        print("in main while loop")
+
         # getting current weather data
         curr_clouds, curr_uv, day_or_not = weather.weather_init()
+        print("clouds: " + str(curr_clouds))
+        print("uv: " + str(curr_uv))
+        print("day? " + str(day_or_not))
 
         # calculating single value for outside light out of 100
         outside_lightval = api_signal_processing(curr_clouds, curr_uv)

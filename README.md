@@ -26,4 +26,12 @@ Once both of these commands have been executed, the two nodes will communicate v
 
 
 ## **External Libraries Used**
-In order to orchestrate our Grovepi sensing, we used the Grovepi library. To create the constantly updating plot of the incoming light sensor data, we used the Matplotlib library.
+In order to orchestrate our Grovepi sensing, we used the Grovepi library. To create the constantly updating plot of the incoming light sensor data, we used the Matplotlib library. We also used the Paho MQTT library for our MQTT connection.
+
+Before running, you need to install these libraries.
+```
+pip install matplotlib
+```
+```
+pip install paho-mqtt
+```
