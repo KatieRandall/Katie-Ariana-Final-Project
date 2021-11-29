@@ -6,6 +6,11 @@ import paho.mqtt.client as mqtt
 import time
 import weather
 
+# import statements for matplotlib
+import datetime as dt
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+
 # paths to use for topics
 laptopdata_path = "kqrandal/data" #change to arianang/data if using ariana's pi
 light_path = "kqrandal/light" #change to arianang/light if using ariana's pi
@@ -33,6 +38,9 @@ def light_callback(client, userdata, message):
     curr_lightsensor_val = int(str(message.payload, "utf-8"))
 
     # do matplot lib here
+
+
+
 
 # this function will take 3 parameters, the reading from the light sensor, a calculated light "score" from the API, and a boolean for if its day or not
 # compare the outside light with the inside light and either open or shut the blinds. 
@@ -75,6 +83,12 @@ if __name__ == '__main__':
     client.connect(host="eclipse.usc.edu", port=11000, keepalive=60)
     client.loop_start()
 
+    # creating plot for matplotlib of sensor data
+    fig = plt.figure()
+    ax = fig.add_subplot(1, 1, 1)
+    xs = []
+    ys = []
+
     while True:
         # getting current weather data
         curr_clouds, curr_uv, day_or_not = weather.weather_init()
@@ -88,6 +102,28 @@ if __name__ == '__main__':
         # publishing the result (open vs. closed blinds) to the pi
         result = light_compare(inside_lightval, outside_lightval, day_or_not)
         client.publish(laptopdata_path, str(result))
+
+
+        # updating matplotlib with newest sensor value
+        xs.append(dt.datetime.now().strftime('%H:%M:%S.%f'))
+        ys.append(curr_lightsensor_val)
+
+        # Limit x and y lists to 20 items
+        xs = xs[-20:]
+        ys = ys[-20:]
+
+        # draw x and y lists, plotting the points according to list contents
+        ax.clear()
+        ax.plot(xs, ys)
+
+        # formatting plot
+        plt.xticks(rotation=45, ha='right')
+        plt.subplots_adjust(bottom=0.30)
+        plt.title('Light Sensor Readings over Time')
+        plt.ylabel('Light Value')
+
+        plt.show()
+
         
         time.sleep(0.5)
         
