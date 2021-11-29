@@ -46,6 +46,7 @@ def light_callback(client, userdata, message):
 # compare the outside light with the inside light and either open or shut the blinds. 
 # very rudimentary at the moment, can implement things like lcd display changes, and opening blinds halfway or stuff like that later
 def light_compare(sensor_lightvalue, api_lightvalue, api_daytime):
+    blinds = ""
     if api_daytime == 1:
         # if it's daytime and it's brighter outside than inside, we want to open the blinds
         if api_lightvalue > sensor_lightvalue:
@@ -107,6 +108,7 @@ if __name__ == '__main__':
         # publishing the result (open vs. closed blinds) to the pi
         result = light_compare(inside_lightval, outside_lightval, day_or_not)
         client.publish(laptopdata_path, str(result))
+        print("result should be: " + str(result))
 
 
         # updating matplotlib with newest sensor value
