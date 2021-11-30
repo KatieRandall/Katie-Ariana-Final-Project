@@ -82,7 +82,7 @@ if __name__ == '__main__':
     client.on_message = on_message
     client.on_connect = on_connect
     client.connect(host="eclipse.usc.edu", port=11000, keepalive=60)
-    client.loop_start()
+    client.loop_start() # makes client listen on a different thread
 
     # creating plot for matplotlib of sensor data
     fig = plt.figure()
@@ -131,7 +131,7 @@ if __name__ == '__main__':
         plt.ylabel('Light Value')
 
         plt.show()
-
+        print("end of while loop")
         
         time.sleep(0.5)
         
