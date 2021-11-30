@@ -10,7 +10,7 @@ Begin by cloning this repository to both a laptop/VM and a Raspberry Pi so that 
 ```
 git clone git@github.com:KatieRandall/Katie-Ariana-Final-Project.git
 ```
-The two files that must be executed to demonstrate our project are `laptop_pub_amd_sub.py` and `rpi_pub_and_sub.py`. They must be executed on the laptop/VM and Raspberry Pi correspondingly.
+The two files that must be executed to demonstrate our project are `laptop_pub_and_sub.py` and `rpi_pub_and_sub.py`. They must be executed on the laptop/VM and Raspberry Pi correspondingly.
 
 On your laptop, in the terminal, run
 ```

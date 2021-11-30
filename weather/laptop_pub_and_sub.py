@@ -114,6 +114,7 @@ if __name__ == '__main__':
         # updating matplotlib with newest sensor value
         xs.append(dt.datetime.now().strftime('%H:%M:%S.%f'))
         ys.append(curr_lightsensor_val)
+        print(curr_lightsensor_val)
 
         # Limit x and y lists to 20 items
         xs = xs[-20:]
