@@ -37,8 +37,6 @@ def light_callback(client, userdata, message):
     # updating global variable
     curr_lightsensor_val = int(str(message.payload, "utf-8"))
 
-    # do matplot lib here
-
 
 
 
@@ -75,6 +73,27 @@ def sensor_signal_processing(sensor_data):
 
     # return inside light value out of 100
     return sensor_data / MAX_READING
+
+
+def animate_sensorvals():
+    xs.append(dt.datetime.now().strftime('%H:%M:%S.%f'))
+    ys.append(curr_lightsensor_val)
+    print(curr_lightsensor_val)
+
+    # Limit x and y lists to 20 items
+    xs = xs[-20:]
+    ys = ys[-20:]
+
+    # draw x and y lists, plotting the points according to list contents
+    ax.clear()
+    ax.plot(xs, ys)
+
+    # formatting plot
+    plt.xticks(rotation=45, ha='right')
+    plt.subplots_adjust(bottom=0.30)
+    plt.title('Light Sensor Readings over Time')
+    plt.ylabel('Light Value')
+
     
 if __name__ == '__main__':
     #this section is covered in publisher_and_subscriber_example.py
@@ -90,48 +109,51 @@ if __name__ == '__main__':
     xs = []
     ys = []
 
-    while True:
-        print("in main while loop")
+    animation = animation.FuncAnimation(fig, animate_sensorvals, fargs=(xs, ys), interval=1000)
+    plt.show()
 
-        # getting current weather data
-        curr_clouds, curr_uv, day_or_not = weather.weather_init()
-        print("clouds: " + str(curr_clouds))
-        print("uv: " + str(curr_uv))
-        print("day? " + str(day_or_not))
+    # while True:
+    #     print("in main while loop")
 
-        # calculating single value for outside light out of 100
-        outside_lightval = api_signal_processing(curr_clouds, curr_uv)
+    #     # getting current weather data
+    #     curr_clouds, curr_uv, day_or_not = weather.weather_init()
+    #     print("clouds: " + str(curr_clouds))
+    #     print("uv: " + str(curr_uv))
+    #     print("day? " + str(day_or_not))
 
-        # calculating single value for inside light out of 100
-        inside_lightval = sensor_signal_processing(curr_lightsensor_val)
+    #     # calculating single value for outside light out of 100
+    #     outside_lightval = api_signal_processing(curr_clouds, curr_uv)
 
-        # publishing the result (open vs. closed blinds) to the pi
-        result = light_compare(inside_lightval, outside_lightval, day_or_not)
-        client.publish(laptopdata_path, str(result))
-        print("result should be: " + str(result))
+    #     # calculating single value for inside light out of 100
+    #     inside_lightval = sensor_signal_processing(curr_lightsensor_val)
+
+    #     # publishing the result (open vs. closed blinds) to the pi
+    #     result = light_compare(inside_lightval, outside_lightval, day_or_not)
+    #     client.publish(laptopdata_path, str(result))
+    #     print("result should be: " + str(result))
 
 
-        # updating matplotlib with newest sensor value
-        xs.append(dt.datetime.now().strftime('%H:%M:%S.%f'))
-        ys.append(curr_lightsensor_val)
-        print(curr_lightsensor_val)
+        # # updating matplotlib with newest sensor value
+        # xs.append(dt.datetime.now().strftime('%H:%M:%S.%f'))
+        # ys.append(curr_lightsensor_val)
+        # print(curr_lightsensor_val)
 
-        # Limit x and y lists to 20 items
-        xs = xs[-20:]
-        ys = ys[-20:]
+        # # Limit x and y lists to 20 items
+        # xs = xs[-20:]
+        # ys = ys[-20:]
 
-        # draw x and y lists, plotting the points according to list contents
-        ax.clear()
-        ax.plot(xs, ys)
+        # # draw x and y lists, plotting the points according to list contents
+        # ax.clear()
+        # ax.plot(xs, ys)
 
-        # formatting plot
-        plt.xticks(rotation=45, ha='right')
-        plt.subplots_adjust(bottom=0.30)
-        plt.title('Light Sensor Readings over Time')
-        plt.ylabel('Light Value')
+        # # formatting plot
+        # plt.xticks(rotation=45, ha='right')
+        # plt.subplots_adjust(bottom=0.30)
+        # plt.title('Light Sensor Readings over Time')
+        # plt.ylabel('Light Value')
 
-        plt.show()
-        print("end of while loop")
+        # plt.show()
+        # print("end of while loop")
         
-        time.sleep(0.5)
+        # time.sleep(0.5)
         
