@@ -16,7 +16,7 @@ laptopdata_path = "arianang/data" #change to arianang/data if using ariana's pi
 light_path = "arianang/light" #change to arianang/light if using ariana's pi
 
 # global variable to create and update with current light sensor value
-curr_lightsensor_val = 0
+curr_lightsensor_val = 20
 
 def on_connect(client, userdata, flags, rc):
     print("Connected to server (i.e., broker) with result code "+str(rc))
@@ -93,6 +93,24 @@ def animate_sensorvals(i, xs, ys):
     plt.subplots_adjust(bottom=0.30)
     plt.title('Light Sensor Readings over Time')
     plt.ylabel('Light Value')
+
+
+    # getting current weather data
+    curr_clouds, curr_uv, day_or_not = weather.weather_init()
+    print("clouds: " + str(curr_clouds))
+    print("uv: " + str(curr_uv))
+    print("day? " + str(day_or_not))
+
+    # calculating single value for outside light out of 100
+    outside_lightval = api_signal_processing(curr_clouds, curr_uv)
+
+    # calculating single value for inside light out of 100
+    inside_lightval = sensor_signal_processing(curr_lightsensor_val)
+
+    # publishing the result (open vs. closed blinds) to the pi
+    result = light_compare(inside_lightval, outside_lightval, day_or_not)
+    client.publish(laptopdata_path, str(result))
+    print("result should be: " + str(result))
 
     
 if __name__ == '__main__':
