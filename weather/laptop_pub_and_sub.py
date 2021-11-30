@@ -36,6 +36,7 @@ def light_callback(client, userdata, message):
 
     # updating global variable
     curr_lightsensor_val = int(str(message.payload, "utf-8"))
+    print("curr val in callback: " , curr_lightsensor_val)
 
 
 
