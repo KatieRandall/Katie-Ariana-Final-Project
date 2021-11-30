@@ -75,7 +75,7 @@ def sensor_signal_processing(sensor_data):
     return sensor_data / MAX_READING
 
 
-def animate_sensorvals():
+def animate_sensorvals(i, xs, ys):
     xs.append(dt.datetime.now().strftime('%H:%M:%S.%f'))
     ys.append(curr_lightsensor_val)
     print(curr_lightsensor_val)
