@@ -16,8 +16,7 @@ laptopdata_path = "arianang/data" #change to arianang/data if using ariana's pi
 light_path = "arianang/light" #change to arianang/light if using ariana's pi
 
 # global variable to create and update with current light sensor value
-global curr_lightsensor_val
-# curr_lightsensor_val = 20
+curr_lightsensor_val = 20
 
 def on_connect(client, userdata, flags, rc):
     print("Connected to server (i.e., broker) with result code "+str(rc))
@@ -36,6 +35,7 @@ def light_callback(client, userdata, message):
     print("light sensor reading: " + str(message.payload, "utf-8"))
 
     # updating global variable
+    global curr_lightsensor_val
     curr_lightsensor_val = int(str(message.payload, "utf-8"))
     print("curr val in callback: " , curr_lightsensor_val)
 
