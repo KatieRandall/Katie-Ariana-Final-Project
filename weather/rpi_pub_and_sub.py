@@ -33,7 +33,7 @@ def data_callback(client, userdata, message):
         print("in data callback")
 
         # sets the text on the LCD to open blinds or close blinds
-        setText(str(message.payload, "utf-8"))
+        setText_norefresh(str(message.payload, "utf-8"))
         if str(message.payload, "utf-8") == "open blinds":
             # to indicate that we should open the blinds, set background color to yellow
             setRGB(247, 255, 20)
