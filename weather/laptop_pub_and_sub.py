@@ -104,7 +104,7 @@ def animate_sensorvals(i, xs, ys):
 
 
     # getting current weather data by calling weather initialization function from weather.py
-    curr_clouds, curr_vis, day_or_not = weather.weather_init()
+    curr_clouds, day_or_not, curr_vis = weather.weather_init()
     print("clouds: " + str(curr_clouds))
     print("visibility: " + str(curr_vis))
     print("day? " + str(day_or_not))
