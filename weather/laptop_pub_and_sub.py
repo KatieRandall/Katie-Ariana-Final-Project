@@ -70,7 +70,7 @@ def api_signal_processing(api_cloudcover, api_vis):
     vis_percent = api_vis / MAX_VIS_VALUE 
 
     # return outside light value out of 100 --> higher value = lighter
-    return (CLOUD_WEIGHT*(100-api_cloudcover) + VIS_WEIGHT*vis_percent)/1000
+    return (CLOUD_WEIGHT*(100-api_cloudcover) + VIS_WEIGHT*vis_percent)/100
 
 # this function returns the light sensor data in a percentage out of 100
 def sensor_signal_processing(sensor_data):
@@ -111,9 +111,11 @@ def animate_sensorvals(i, xs, ys):
 
     # calculating single value for outside light out of 100
     outside_lightval = api_signal_processing(curr_clouds, curr_vis)
+    print("outside:", outside_lightval)
 
     # calculating single value for inside light out of 100
     inside_lightval = sensor_signal_processing(curr_lightsensor_val)
+    print("inside:", inside_lightval)
 
     # publishing the result (open vs. closed blinds) to the pi
     result = light_compare(inside_lightval, outside_lightval, day_or_not)
