@@ -1,12 +1,35 @@
 # EE 250 Final Project
 ### Ariana Goldstein and Katie Randall
 
+___
 Demonstration video link:
+___
 
 ## **Overview**
+We created a small scale prototype of a smart shade system that saves energy by indicating when to open and close the blinds (and therefore turn off and on the lights) depending on the brightness levels in the room and outside.
+
+It directly senses the brightness of the room using the Grovepi light sensor. It also pulls weather data-- specifically, cloud cover percentage and UV index-- to calculate a comparable brightness value of the outdoors. Based on the comparison of these values, the LCD screen indicates whether the blinds should be open or closed, and in turn, whether the lights should be switched on or off.
+
+The real-world applications of this project are significant. A similar system could be implemented in homes, offices, and school buildings to minimize the time that lights must be switched on, maximizing efficiency and minimizing energy use. It determines when the best time is to rely on the natural light from outside instead of electricity.
+
+The sections below provide technical details about how our program can be run.
+___
+
+## **External Libraries Used**
+In order to orchestrate our Grovepi sensing, we used the Grovepi library. Ensure that this library is installed before running the program. To create the constantly updating plot of the incoming light sensor data, we used the Matplotlib library. This library must be installed on your laptop/VM.
+```
+pip install matplotlib
+```
+
+We also used the Paho MQTT library for our MQTT connection. This library must be installed on both your laptop/VM and Raspberry Pi.
+```
+pip install paho-mqtt
+```
+
+___
 
 ## **To Compile and Execute**
-Begin by cloning this repository to both a laptop/VM and a Raspberry Pi so that you have local copies of all of the necessary files. In both terminals, run
+Once you have the external libraries installed, clone this repository to both a laptop/VM and a Raspberry Pi so that you have local copies of all of the necessary files. In both terminals, run
 ```
 git clone git@github.com:KatieRandall/Katie-Ariana-Final-Project.git
 ```
@@ -14,24 +37,14 @@ The two files that must be executed to demonstrate our project are `laptop_pub_a
 
 On your laptop, in the terminal, run
 ```
-python3 laptop_pub_amd_sub.py
+python3 laptop_pub_and_sub.py
 ```
 
 On your Pi, in the terminal, run
 ```
-python3 rpi_pub_amd_sub.py
+python3 rpi_pub_and_sub.py
 ```
 
 Once both of these commands have been executed, the two nodes will communicate via MQTT. The laptop will pull data from the Weather API and publish it to the Pi, and the Pi will sense light data from the environment and publish it to the laptop. 
 
-
-## **External Libraries Used**
-In order to orchestrate our Grovepi sensing, we used the Grovepi library. To create the constantly updating plot of the incoming light sensor data, we used the Matplotlib library. We also used the Paho MQTT library for our MQTT connection.
-
-Before running, you need to install these libraries.
-```
-pip install matplotlib
-```
-```
-pip install paho-mqtt
-```
+A plot should pop up and begin plotting the light sensor data live, updating each second depending on the current brightness condition of the room.
