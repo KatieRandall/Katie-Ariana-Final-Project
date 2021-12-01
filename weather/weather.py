@@ -26,6 +26,9 @@ def get_weather(zip_code):
         clouds = data_cloud['current']['cloud']
         day_or_not = data_cloud['current']['is_day']
         visibility = data_vis['current']['vis_km']
+        print(clouds)
+        print(day_or_not)
+        print(visibility)
 
         # returning a tuple with these values
         return clouds, day_or_not, visibility

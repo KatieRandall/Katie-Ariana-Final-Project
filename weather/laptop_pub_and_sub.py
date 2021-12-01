@@ -77,7 +77,7 @@ def sensor_signal_processing(sensor_data):
     MAX_READING = 760 # max light sensor value (technically 800, but only goes to 760 on our sensor)
 
     # return inside light value out of 100 --> higher value = lighter
-    return sensor_data / MAX_READING
+    return (sensor_data / MAX_READING)*100
 
 
 # this function will be called every 1 second from main
