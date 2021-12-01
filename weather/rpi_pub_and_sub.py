@@ -11,9 +11,11 @@ import threading # has Lock, a key. you cannot perform operations without the ke
 
 lock = threading.Lock()
 
+# paths to use for topics
 laptopdata_path = "arianang/data" #change to arianang/data if using ariana's pi
 light_path = "arianang/light" #change to arianang/light if using ariana's pi
 
+# on_connect function to indicate whether we have connected to the broker successfully or not
 def on_connect(client, userdata, flags, rc):
     print("Connected to server (i.e., broker) with result code "+str(rc))
 
@@ -21,7 +23,7 @@ def on_connect(client, userdata, flags, rc):
     client.subscribe(laptopdata_path)
     client.message_callback_add(laptopdata_path, data_callback)
 
-#Default message callback. Please use custom callbacks.
+# default message callback
 def on_message(client, userdata, msg):
     print("on_message: " + msg.topic + " " + str(msg.payload, "utf-8"))
 
@@ -41,7 +43,6 @@ def data_callback(client, userdata, message):
 
 
 if __name__ == '__main__':
-    #this section is covered in publisher_and_subscriber_example.py
     client = mqtt.Client()
     client.on_message = on_message
     client.on_connect = on_connect
@@ -50,8 +51,8 @@ if __name__ == '__main__':
 
     # setting up connections on the Grovepi
     light_sensor = 0 # light sensor should be plugged into A0
-    # lcd should be plugged into an I2C port. no code necessary to declare this, just wiring
     pinMode(light_sensor,"INPUT")
+    # lcd should be plugged into an I2C port. no code necessary to declare this, just wiring
     
     while True:
         try:
