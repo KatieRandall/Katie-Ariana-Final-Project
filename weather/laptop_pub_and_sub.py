@@ -94,7 +94,7 @@ def animate_sensorvals(i, xs, ys):
 
     # draw x and y lists, plotting the points according to list contents
     ax.clear()
-    ax.plot(xs, ys, marker = 'o', c = ys, cmap = 'plasma')
+    ax.plot(xs, ys, c = ys, cmap = 'plasma')
 
     # formatting plot
     plt.xticks(rotation=45, ha='right')
