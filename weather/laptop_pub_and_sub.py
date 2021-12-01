@@ -43,11 +43,8 @@ def light_callback(client, userdata, message):
     curr_lightsensor_val = int(str(message.payload, "utf-8"))
     print("curr val in callback: " , curr_lightsensor_val)
 
-
-
 # this function will take 3 parameters, the reading from the light sensor, a calculated light "score" from the API, and a boolean for if it's day or not
-# compare the outside light with the inside light and either open or shut the blinds 
-# very rudimentary at the moment: in the future, could implement things like opening blinds halfway/ a certain amount
+# compare the outside light (from API) with the inside light (from sensor) and either open or shut the blinds 
 def light_compare(sensor_lightvalue, api_lightvalue, api_daytime):
     blinds = "" # we will end up returning this variable indicating whether to open or close the blinds
     if api_daytime == 1:
@@ -63,20 +60,23 @@ def light_compare(sensor_lightvalue, api_lightvalue, api_daytime):
     return blinds # we return a string
 
 # this function will take the information from the API and weight it to return one light value in a percentage out of 100
-def api_signal_processing(api_cloudcover, api_uv):
-    CLOUD_WEIGHT = 80 #using these weights for now but we will probably need to test some values to see what actual weights are
-    UV_WEIGHT = 20
-    MAX_UV_VALUE = 10
-    uv_percent = api_uv / MAX_UV_VALUE
+def api_signal_processing(api_cloudcover, api_vis):
+    #assigning weights
+    CLOUD_WEIGHT = 80 
+    VIS_WEIGHT = 20
 
-    # return outside light value out of 100
-    return (CLOUD_WEIGHT*(100-api_cloudcover) + UV_WEIGHT*uv_percent)/1000
+    #converting visibility in units of km to visibility %
+    MAX_VIS_VALUE = 296 #visibility (km) on a clear day
+    vis_percent = api_vis / MAX_VIS_VALUE 
+
+    # return outside light value out of 100 --> higher value = lighter
+    return (CLOUD_WEIGHT*(100-api_cloudcover) + VIS_WEIGHT*vis_percent)/1000
 
 # this function returns the light sensor data in a percentage out of 100
 def sensor_signal_processing(sensor_data):
-    MAX_READING = 760 # max light sensor value (not sure if this is max)
+    MAX_READING = 760 # max light sensor value (technically 800, but only goes to 760 on our sensor)
 
-    # return inside light value out of 100
+    # return inside light value out of 100 --> higher value = lighter
     return sensor_data / MAX_READING
 
 
@@ -104,13 +104,13 @@ def animate_sensorvals(i, xs, ys):
 
 
     # getting current weather data by calling weather initialization function from weather.py
-    curr_clouds, curr_uv, day_or_not = weather.weather_init()
+    curr_clouds, curr_vis, day_or_not = weather.weather_init()
     print("clouds: " + str(curr_clouds))
-    print("uv: " + str(curr_uv))
+    print("visibility: " + str(curr_vis))
     print("day? " + str(day_or_not))
 
     # calculating single value for outside light out of 100
-    outside_lightval = api_signal_processing(curr_clouds, curr_uv)
+    outside_lightval = api_signal_processing(curr_clouds, curr_vis)
 
     # calculating single value for inside light out of 100
     inside_lightval = sensor_signal_processing(curr_lightsensor_val)
