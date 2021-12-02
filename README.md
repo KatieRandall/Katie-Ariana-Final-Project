@@ -6,11 +6,11 @@ Demonstration video link:
 ___
 
 ## **Overview**
-We created a small scale prototype of a smart shade system that saves energy by indicating when to open and close the blinds (and therefore turn off and on the lights) depending on the brightness levels in the room and outside.
+For our project, we created a small-scale prototype of a smart shade system that saves energy by indicating when to open and close the blinds (and therefore turn off and on the lights) depending on the brightness levels in the room and outside.
 
-It directly senses the brightness of the room using the Grovepi light sensor. It also pulls weather data-- specifically, cloud cover percentage and UV index-- to calculate a comparable brightness value of the outdoors. Based on the comparison of these values, the LCD screen indicates whether the blinds should be open or closed, and in turn, whether the lights should be switched on or off.
+Our program directly senses the brightness of the room using the GrovePi light sensor. It also pulls weather data— specifically, cloud cover percentage and visibility— to calculate a comparable brightness value of the outdoors. Based on the comparison of these values, the GrovePi LCD screen indicates whether the blinds should be open or closed to let in natural light, and in turn, whether the lights should be switched on or off.
 
-The real-world applications of this project are significant. A similar system could be implemented in homes, offices, and school buildings to minimize the time that lights must be switched on, maximizing efficiency and minimizing energy use. It determines when the best time is to rely on the natural light from outside instead of electricity.
+The real-world applications of this project are significant. A similar system could be implemented in homes, offices, and school buildings to minimize the time that lights must be switched on, maximizing efficiency and minimizing energy use. The concept of using a combination of indoor sensors and outdoor brightness data to toggle window blinds has lots of potential utilizations. We wanted to explore the basics in our project.
 
 The sections below provide technical details about how our program can be run.
 ___
