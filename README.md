@@ -3,6 +3,7 @@
 
 ___
 Demonstration video link: https://drive.google.com/file/d/1feKb-XJO_jng_UeXqYVEznqVblJFk_Ti/view
+Writeup link: https://docs.google.com/document/d/1OHgXaZXDfRqZAbY_-enm5_EA4pBc0viZAbkT9T78cSk/edit
 ___
 
 ## **Overview**
@@ -33,14 +34,14 @@ Once you have the external libraries installed, clone this repository to both a 
 ```
 git clone git@github.com:KatieRandall/Katie-Ariana-Final-Project.git
 ```
-The two files that must be executed to demonstrate our project are `laptop_pub_and_sub.py` and `rpi_pub_and_sub.py`. They must be executed on the laptop/VM and Raspberry Pi correspondingly.
+The two files that must be executed to demonstrate our project are `laptop_pub_and_sub.py` and `rpi_pub_and_sub.py`. They must be executed on the laptop/VM and Raspberry Pi correspondingly. From the `weather` directory,
 
-On your laptop, in the terminal, run
+on your laptop, in the terminal, run
 ```
 python3 laptop_pub_and_sub.py
 ```
 
-On your Pi, in the terminal, run
+and on your Pi, in the terminal, run
 ```
 python3 rpi_pub_and_sub.py
 ```
